@@ -52,15 +52,7 @@ echo "Build done! Cleaning..."
 
 ## copy generated rpm
 
-getNormalUser(){
-        getppid() { grep PPid /proc/$1/status | sed 's/.*\t//' ; }
-        ppid=`getppid $$`
-        ppid=`getppid $ppid`
-        ppid=`getppid $ppid`
-        ls -lh /proc/$ppid/exe | cut -d ' ' -f3
-}
-
-$NORMAL_USER=`getNormalUser`
+NORMAL_USER=`logname`
 
 if [ $ARCH == '1' ]; then
 	cp -r ../RPMS/x86_64/*.rpm /home/$NORMAL_USER/
