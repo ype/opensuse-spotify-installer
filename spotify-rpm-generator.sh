@@ -25,12 +25,11 @@ fi
 # prepare for the build environment.
 
 # download specfile from github
-pushd /usr/src/package/SPECS/
-wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spec/spotify.spec
-popd
+cd /usr/src/package/SPECS/
+wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spotify.spec
 
 # download source deb
-cd /usr/src/packages/SOURCES/
+cd ../SOURCES/
 
 echo "Downloading..."
 if [ `uname -m` == 'x86_64' ]; then
