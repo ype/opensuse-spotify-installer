@@ -3,7 +3,7 @@
 # Author: Marguerite Su <i@marguerite.su>
 # License: GPL-3.0
 # Version: 1.0
-# Descritpion: Shell Scripts used to build and install Spotify standard RPM for openSUSE.
+# Description: Shell Scripts used to build and install Spotify standard RPM for openSUSE.
 
 # need root permission
 
@@ -26,28 +26,18 @@ fi
 
 # download specfile from github
 pushd /usr/src/package/SPECS/
-wget https://raw.github.com/aspiers/opensuse-spotify-installer/master/spec/spotify.spec
+wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spec/spotify.spec
 popd
 
+# download source deb
 cd /usr/src/packages/SOURCES/
 
-echo "What is your architecture? 1.) x86_64 2.) i586 : (1 or 2)"
-read ARCH
-
-case $ARCH in
-	1)	
-		echo "Bingo! Downloading..."
-		wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_amd64.deb
-		;;
-	2)
-		echo "Bingo! Downloading..."
-		wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_i386.deb
-		;;
-	*)
-		echo "You must select an architecture! See if you have a /usr/lib64 directory."
-		exit 1
-		;;
-esac
+echo "Downloading..."
+if [ `uname -m` == 'x86_64' ]; then
+	wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_amd64.deb
+else	
+	wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_i386.deb
+fi
 
 # build
 
@@ -60,15 +50,24 @@ echo "Build done! Cleaning..."
 
 # clean
 
-echo "Input your NORMAL username :"
-read NORMAL_USER
-
 ## copy generated rpm
+
+getNormalUser(){
+        getppid() { grep PPid /proc/$1/status | sed 's/.*\t//' ; }
+        ppid=`getppid $$`
+        ppid=`getppid $ppid`
+        ppid=`getppid $ppid`
+        ls -lh /proc/$ppid/exe | cut -d ' ' -f3
+}
+
+$NORMAL_USER=`getNormalUser`
+
 if [ $ARCH == '1' ]; then
 	cp -r ../RPMS/x86_64/*.rpm /home/$NORMAL_USER/
 else
 	cp -r ../RPMS/i586/*.rpm /home/$NORMAL_USER/
 fi
+     
 
 ## real clean
 rm -rf /usr/src/packages/SOURCES/*
@@ -100,7 +99,7 @@ Next time you can use `sudo rpm -ivh --force --nodeps spotify-*.rpm` or\n
 
 # quit
 
-echo "Quiting..."
+echo "Quitting..."
 
 exit 0
 

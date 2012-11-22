@@ -16,7 +16,7 @@ Download [~/spotify-rpm-generator.sh](https://raw.github.com/aspiers/opensuse-sp
 
 You need `rpmbuild` package from your system.
 
-Then find the hiearchy like `/usr/src/packages`:
+Then find the hierarchy like `/usr/src/packages`:
 
 
 		-- BUILD
