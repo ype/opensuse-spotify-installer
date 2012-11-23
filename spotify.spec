@@ -144,10 +144,8 @@ export NO_BRP_CHECK_RPATH=true
 %{_datadir}/pixmaps/spotify-linux-512x512.png
 
 %changelog
-* Mon Aug 20 19:50:23 UTC 2012 Marguerite Su <i@marguerite.su>
-- initial version 0.8.4.103.g9cb117b.260
-  + Spotify App!
-- use libopenssl1_0_0 instead of libopenssl0_9_8 to fix a crash
-  and other linkings ready.
+* Mon Aug 20 2012 Marguerite Su <i@marguerite.su> - 0.8.4.103.g9cb117b.260
+- initial version with Spotify App support.
+- use libopenssl1_0_0 instead of libopenssl0_9_8 to fix a crash and other linkings ready.
 - use wrapper to clear cache manually
 

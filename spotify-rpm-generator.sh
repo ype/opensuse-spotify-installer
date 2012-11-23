@@ -13,14 +13,21 @@ then
         exit 1
 fi
 
-# check if we have 'rpmbuild' package installed, if not then install it.
+# define spotify parameters
 
-if rpm -qa rpm-build; then
-	# already installed
+SPOTIFY_VERSION=0.8.4.103.g9cb177b.260-1
+
+if [ `uname -m` == 'x86_64' ]; then
+        SPOTIFY_ARCH=amd64
 else
-	zypper install --no-refresh rpm-build # 'rpm-build' is in oss, so no need to refresh that long.
+        SPOTIFY_ARCH=i386
 fi
 
+# check if we have 'rpmbuild' package installed, if not then install it.
+
+if [ `rpm -qa rpm-build` != "" ] ; then
+	zypper install --no-refresh rpm-build # 'rpm-build' is in oss, so no need to refresh that long.
+fi
 
 # prepare for the build environment.
 
@@ -31,12 +38,15 @@ wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spotify
 # download source deb
 cd ../SOURCES/
 
+echo "If you already have spotify deb, please press 'ctrl + c',\n
+put it under your home, and restart this script.\n
+or else we'll download it (may take a long time)."
+
+sleep 5
+
 echo "Downloading..."
-if [ `uname -m` == 'x86_64' ]; then
-	wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_amd64.deb
-else	
-	wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_0.8.4.103.g9cb177b.260-1_i386.deb
-fi
+	
+test -x spotify-client_($SPOTIFY_VERSION)_$SPOTIFY_ARCH.deb || wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_($SPOTIFY_VERSION)_$SPOTIFY_ARCH.deb
 
 # build
 
