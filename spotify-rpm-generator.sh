@@ -25,14 +25,14 @@ fi
 
 # check if we have 'rpmbuild' package installed, if not then install it.
 
-if [ `rpm -qa rpm-build` != "" ] ; then
+if [[ `rpm -qa rpm-build` != "" ]] ; then
 	zypper install --no-refresh rpm-build # 'rpm-build' is in oss, so no need to refresh that long.
 fi
 
 # prepare for the build environment.
 
 # download specfile from github
-cd /usr/src/package/SPECS/
+cd /usr/src/packages/SPECS/
 wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spotify.spec
 
 # download source deb
@@ -46,7 +46,7 @@ sleep 5
 
 echo "Downloading..."
 	
-test -x spotify-client_($SPOTIFY_VERSION)_$SPOTIFY_ARCH.deb || wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_($SPOTIFY_VERSION)_$SPOTIFY_ARCH.deb
+test -x spotify-client_${SPOTIFY_VERSION}_$SPOTIFY_ARCH.deb || wget http://repository.spotify.com/pool/non-free/s/spotify/spotify-client_${SPOTIFY_VERSION}_$SPOTIFY_ARCH.deb
 
 # build
 
