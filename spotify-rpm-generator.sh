@@ -19,8 +19,10 @@ SPOTIFY_VERSION=0.8.4.103.g9cb177b.260-1
 
 if [ `uname -m` == 'x86_64' ]; then
         SPOTIFY_ARCH=amd64
+	RPM_ARCH=x86_64
 else
         SPOTIFY_ARCH=i386
+	RPM_ARCH=i586
 fi
 
 # check if we have 'rpmbuild' package installed, if not then install it.
@@ -63,19 +65,13 @@ echo "Build done! Cleaning..."
 
 NORMAL_USER=`logname`
 
-if [ $ARCH == '1' ]; then
-	cp -r ../RPMS/x86_64/*.rpm /home/$NORMAL_USER/
-else
-	cp -r ../RPMS/i586/*.rpm /home/$NORMAL_USER/
-fi
+cp -r ../RPMS/$RPM_ARCH/*.rpm /home/$NORMAL_USER/
      
-
 ## real clean
 rm -rf /usr/src/packages/SOURCES/*
 rm -rf /usr/src/packages/BUILD/*
 rm -rf /usr/src/packages/BUILDROOT/*
-rm -rf /usr/src/packages/RPM/i586/*
-rm -rf /usr/src/packages/RPM/x86_64/*
+rm -rf /usr/src/packages/RPM/$RPM_ARCH/*
 rm -rf /usr/src/packages/SRPM/*
 rm -rf /usr/src/packages/SPECS/*
 
@@ -85,9 +81,9 @@ rm -rf /usr/src/packages/SPECS/*
 
 echo "Resolving dependencies..."
 
-! [ `rpm -qa mozilla-nss` ] && zypper install --no-refresh mozilla-nss
-! [ `rpm -qa mozilla-nspr` ] && zypper install --no-refresh mozilla-nspr
-! [ `rpm -qa libopenssl1_0_0` ] && zypper install --no-refresh libopenssl1_0_0
+! [ `rpm -qa mozilla-nss` ] && zypper --no-refresh install mozilla-nss
+! [ `rpm -qa mozilla-nspr` ] && zypper --no-refresh install mozilla-nspr
+! [ `rpm -qa libopenssl1_0_0` ] && zypper --no-refresh install libopenssl1_0_0
 
 echo "Installing..."
 
@@ -96,7 +92,7 @@ rpm -ivh --force --nodeps /home/$NORMAL_USER/spotify-*.rpm
 echo "Congrats! Installation finished.\n
 We put the generated RPM under your home.\n
 Next time you can use `sudo rpm -ivh --force --nodeps spotify-*.rpm` or\n
-`sudo zypper install --no-refresh --force-resolution` to install it."
+`sudo zypper --no-refresh install --force-resolution` to install it."
 
 # quit
 

@@ -48,7 +48,7 @@ Use:
 
 or
 
-		sudo zypper install --no-refresh --force-resolution *.rpm
+		sudo zypper --no-refresh install --force-resolution *.rpm
 
 to install it. (`--nodeps` or `--force-resolution` is very important!)
 
