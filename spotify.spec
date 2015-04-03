@@ -1,7 +1,7 @@
 #
 # spec file for package spotify
 #
-# Copyright (c) 2012 Marguerite Su.
+# Copyright (c) 2014 Anton Strilchuk
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -16,9 +16,9 @@
 # http://forums.opensuse.org/english/get-technical-help-here/multimedia/443186-spotify-linux-version-opensuse.html
 #
 
-Name:           spotify
-Version:	0.8.4.103
-Release:	g9cb177b.260
+Name:     spotify
+Version:	0.9.17.1
+Release:	g9b85d43.7
 License:	Any Commercial
 Summary:	A world of Music
 Url:	http://repository.spotify.com/pool/non-free/s/spotify
@@ -144,6 +144,8 @@ export NO_BRP_CHECK_RPATH=true
 %{_datadir}/pixmaps/spotify-linux-512x512.png
 
 %changelog
+* Fri 03 Apr 2014 ype <ype@env.sh> - 0.9.17.1.g9b85d43.7-1
+- Updated version number
 * Mon Aug 20 2012 Marguerite Su <i@marguerite.su> - 0.8.4.103.g9cb117b.260
 - initial version with Spotify App support.
 - use libopenssl1_0_0 instead of libopenssl0_9_8 to fix a crash and other linkings ready.

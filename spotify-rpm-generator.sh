@@ -15,7 +15,7 @@ fi
 
 # define spotify parameters
 
-SPOTIFY_VERSION=0.8.4.103.g9cb177b.260-1
+SPOTIFY_VERSION=0.9.17.1.g9b85d43.7-1
 
 if [ `uname -m` == 'x86_64' ]; then
         SPOTIFY_ARCH=amd64
@@ -37,7 +37,7 @@ fi
 
 # download specfile from github
 cd /usr/src/packages/SPECS/
-wget https://raw.github.com/marguerite/opensuse-spotify-installer/master/spotify.spec -O spotify.spec
+wget https://raw.github.com/ype/opensuse-spotify-installer/master/spotify.spec -O spotify.spec
 
 # download source deb
 cd ../SOURCES/
